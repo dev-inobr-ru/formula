@@ -1,0 +1,6 @@
+
+.idea/*
+.project
+example/full/packages/*
+example/packages/*
+packages/*

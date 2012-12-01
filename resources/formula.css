@@ -1,0 +1,39 @@
+.formula {
+    padding: 5px;
+}
+
+input.textLeaf {
+    padding: 0;
+}
+
+.textLeaf.empty,
+.textLeaf.active {
+    border: 1px #000000 dashed;
+}
+
+.textLeaf.empty {
+    width: 10px;
+}
+
+.expression {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.fraction,
+.expression input {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
+    position: relative;
+}
+
+.numerator {
+    border-bottom: #000000 solid 1px;
+}
+.numerator input {
+    margin-bottom: 3px;
+}
+.denominator input {
+    margin-top: 3px;
+}

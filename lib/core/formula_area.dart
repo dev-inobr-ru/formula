@@ -6,7 +6,7 @@ class FormulaArea {
     BaseExpression get expression => _expression;
 
     FormulaArea() {
-        this._expression = new BaseExpression(null);
+        _expression = new BaseExpression(null);
     }
 
     Element render() {
@@ -17,5 +17,9 @@ class FormulaArea {
         divElem.elements.add(this._expression.render());
 
         return divElem;
+    }
+
+    void realignVertical() {
+        _expression.realignVertical();
     }
 }

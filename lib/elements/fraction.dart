@@ -5,6 +5,8 @@ class Fraction extends BaseExpression {
     BaseExpression _numerator;
     BaseExpression _denominator;
 
+    Element _elem;
+
     Fraction(BaseExpression parent) : super(parent);
 
     void init() {
@@ -13,13 +15,26 @@ class Fraction extends BaseExpression {
     }
 
     Element render([klass = 'expression']) {
-        var divFractionElem = new DivElement();
+        if (_elem == null) {
+            _elem = new DivElement();
 
-        divFractionElem.classes.add('fraction');
-        divFractionElem.elements.add(_numerator.render('numerator'));
-        divFractionElem.elements.add(_denominator.render('denominator'));
+            _elem.classes.add('fraction');
+            _elem.elements.add(_numerator.render('numerator'));
+            _elem.elements.add(_denominator.render('denominator'));
 
-        return divFractionElem;
+            _elem.xtag = this;
+        }
+
+        return _elem;
+    }
+
+    double getBaselineY() {
+        return _numerator.getElementHeight().toDouble();
+    }
+
+    void realignVertical() {
+        _numerator.realignVertical();
+        _denominator.realignVertical();
     }
 }
 

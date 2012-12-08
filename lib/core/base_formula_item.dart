@@ -10,4 +10,6 @@ abstract class BaseFormulaItem {
     }
 
     Element render();
+
+    double getBaselineY();
 }

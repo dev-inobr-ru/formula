@@ -31,6 +31,11 @@ input.textLeaf {
 .numerator {
     border-bottom: #000000 solid 1px;
 }
+.numerator,
+.denominator {
+    text-align: center;
+}
+
 .numerator input {
     margin-bottom: 3px;
 }

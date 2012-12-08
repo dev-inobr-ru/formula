@@ -30,6 +30,8 @@ class FormulaWorkspace {
 
             _rootElement.nodes.removeLast();
             _rootElement.nodes.add(_formulaArea.render());
+
+            _formulaArea.realignVertical();
         });
     }
 

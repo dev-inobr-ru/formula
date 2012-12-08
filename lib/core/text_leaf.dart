@@ -59,4 +59,8 @@ class TextLeaf extends BaseFormulaItem {
 
         _elem.xtag = this;
     }
+
+    double getBaselineY() {
+        return  _elem.clientHeight / 2;
+    }
 }

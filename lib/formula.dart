@@ -1,6 +1,7 @@
 library formula;
 
 import 'dart:html';
+import 'dart:math';
 
 part 'core/base_expression.dart';
 part 'core/base_formula_item.dart';

@@ -64,7 +64,7 @@ class BaseExpression extends BaseFormulaItem {
 
         var maxNegativeOffsetTop = 0;
         for (var elem in _elem.elements) {
-            if (elem == maxHeightElem || elem.clientHeight == maxHeightElem.clientHeight){
+            if (elem == maxHeightElem){
                 elem.style.top = '0';
             } else {
                 var curDelta = (elem.xtag as BaseFormulaItem).getBaselineY() - elem.clientHeight / 2;

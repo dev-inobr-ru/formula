@@ -58,10 +58,9 @@ class BaseExpression extends BaseFormulaItem {
             }
         }
 
+        // align by baseline
         var baselineY = (maxHeightElem.xtag as BaseFormulaItem).getBaselineY();
         var delta = baselineY - maxHeightElem.clientHeight / 2;
-        var baseOffsetTop = maxHeightElem.offsetTop;
-
         var maxNegativeOffsetTop = 0;
         for (var elem in _elem.elements) {
             if (elem == maxHeightElem){
@@ -69,17 +68,31 @@ class BaseExpression extends BaseFormulaItem {
             } else {
                 var curDelta = (elem.xtag as BaseFormulaItem).getBaselineY() - elem.clientHeight / 2;
                 elem.style.top = '${delta - curDelta}px';
-
-                maxNegativeOffsetTop = min(elem.offsetTop - baseOffsetTop, maxNegativeOffsetTop);
             }
+        }
+
+        // move down all elements if there is elements with negative top offset with respect to maxHeightElem's top
+        for (var elem in _elem.elements) {
+            maxNegativeOffsetTop = min(elem.offsetTop - maxHeightElem.offsetTop, maxNegativeOffsetTop);
         }
         for (var elem in _elem.elements) {
             var top = double.parse(elem.style.top.replaceAll('px', ''));
             elem.style.top = '${top - maxNegativeOffsetTop}px';
         }
 
+        // reallign all child expressions
         for (var item in _innerItems) {
             if (item is BaseExpression) item.realignVertical();
         }
+
+        // fix height to cover all children's content
+        var maxTotalHeight = 0;
+        for (var elem in _elem.elements) {
+            var top = double.parse(elem.style.top.replaceAll('px', ''));
+            if (top + elem.offsetHeight > maxTotalHeight) {
+                maxTotalHeight = top + elem.offsetHeight;
+            }
+        }
+        _elem.style.minHeight = "${maxTotalHeight}px";
     }
 }

@@ -15,11 +15,6 @@ input.textLeaf {
     width: 10px;
 }
 
-.expression {
-    display: table-cell;
-    vertical-align: middle;
-}
-
 .fraction,
 .expression input {
     display: inline-block;

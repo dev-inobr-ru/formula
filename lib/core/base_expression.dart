@@ -36,8 +36,8 @@ class BaseExpression extends BaseFormulaItem {
             _elem.classes.add(klass);
         }
 
-        _elem.elements.clear();
-        _elem.elements.addAll(_innerItems.map((e) => e.render()));
+        _elem.children.clear();
+        _elem.children.addAll(_innerItems.map((e) => e.render()));
 
         return _elem;
     }
@@ -51,8 +51,8 @@ class BaseExpression extends BaseFormulaItem {
     }
 
     void realignVertical() {
-        var maxHeightElem = _elem.elements[0];
-        for (var elem in _elem.elements) {
+        var maxHeightElem = _elem.children[0];
+        for (var elem in _elem.children) {
             if (elem.clientHeight > maxHeightElem.clientHeight) {
                 maxHeightElem = elem;
             }
@@ -62,7 +62,7 @@ class BaseExpression extends BaseFormulaItem {
         var baselineY = (maxHeightElem.xtag as BaseFormulaItem).getBaselineY();
         var delta = baselineY - maxHeightElem.clientHeight / 2;
         var maxNegativeOffsetTop = 0;
-        for (var elem in _elem.elements) {
+        for (var elem in _elem.children) {
             if (elem == maxHeightElem){
                 elem.style.top = '0';
             } else {
@@ -72,10 +72,10 @@ class BaseExpression extends BaseFormulaItem {
         }
 
         // move down all elements if there is elements with negative top offset with respect to maxHeightElem's top
-        for (var elem in _elem.elements) {
+        for (var elem in _elem.children) {
             maxNegativeOffsetTop = min(elem.offsetTop - maxHeightElem.offsetTop, maxNegativeOffsetTop);
         }
-        for (var elem in _elem.elements) {
+        for (var elem in _elem.children) {
             var top = double.parse(elem.style.top.replaceAll('px', ''));
             elem.style.top = '${top - maxNegativeOffsetTop}px';
         }
@@ -87,7 +87,7 @@ class BaseExpression extends BaseFormulaItem {
 
         // fix height to cover all children's content
         var maxTotalHeight = 0;
-        for (var elem in _elem.elements) {
+        for (var elem in _elem.children) {
             var top = double.parse(elem.style.top.replaceAll('px', ''));
             if (top + elem.offsetHeight > maxTotalHeight) {
                 maxTotalHeight = top + elem.offsetHeight;

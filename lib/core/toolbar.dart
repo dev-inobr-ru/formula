@@ -10,7 +10,7 @@ class Toolbar {
     Element render() {
         var divElem = new DivElement();
         divElem.classes.add('toolbar');
-        divElem.elements.add(new Element.html('<h2>Toolbar</h2>'));
+        divElem.children.add(new Element.html('<h2>Toolbar</h2>'));
 
         var fractionBtn = new ButtonElement();
         fractionBtn.text = 'Fraction';
@@ -22,7 +22,7 @@ class Toolbar {
 
         fractionBtn.xtag = fractionFactory;
 
-        divElem.elements.add(fractionBtn);
+        divElem.children.add(fractionBtn);
 
         return divElem;
     }

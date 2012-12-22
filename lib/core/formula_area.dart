@@ -12,9 +12,9 @@ class FormulaArea {
     Element render() {
         var divElem = new DivElement();
         divElem.classes.add('result');
-        divElem.elements.add(new Element.html('<h2>Result</h2>'));
+        divElem.children.add(new Element.html('<h2>Result</h2>'));
 
-        divElem.elements.add(this._expression.render());
+        divElem.children.add(this._expression.render());
 
         return divElem;
     }

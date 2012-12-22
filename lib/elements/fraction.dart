@@ -19,8 +19,8 @@ class Fraction extends BaseExpression {
             _elem = new DivElement();
 
             _elem.classes.add('fraction');
-            _elem.elements.add(_numerator.render('numerator'));
-            _elem.elements.add(_denominator.render('denominator'));
+            _elem.children.add(_numerator.render('numerator'));
+            _elem.children.add(_denominator.render('denominator'));
 
             _elem.xtag = this;
         }

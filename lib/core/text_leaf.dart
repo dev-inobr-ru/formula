@@ -41,7 +41,7 @@ class TextLeaf extends BaseFormulaItem {
                     testElem.style.whiteSpace = 'nowrap';
                     _elem.document.$dom_body.children.add(testElem);
                     // multiple regular spaces are combined into one when element is rendered
-                    testElem.children = _elem.value.replaceAll(' ', '&nbsp;');
+                    testElem.innerHtml = _elem.value.replaceAll(' ', '&nbsp;');
                     var rect = testElem.getBoundingClientRect();
                     _elem.style.width = "${rect.width}px";
                     testElem.remove();

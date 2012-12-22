@@ -51,6 +51,12 @@ class BaseExpression extends BaseFormulaItem {
     }
 
     void realignVertical() {
+        // reallign all child expressions
+        for (var item in _innerItems) {
+            if (item is BaseExpression) item.realignVertical();
+        }
+
+        // align by baseline
         var maxHeightElem = _elem.children[0];
         for (var elem in _elem.children) {
             if (elem.clientHeight > maxHeightElem.clientHeight) {
@@ -58,7 +64,6 @@ class BaseExpression extends BaseFormulaItem {
             }
         }
 
-        // align by baseline
         var baselineY = (maxHeightElem.xtag as BaseFormulaItem).getBaselineY();
         var delta = baselineY - maxHeightElem.clientHeight / 2;
         var maxNegativeOffsetTop = 0;
@@ -78,11 +83,6 @@ class BaseExpression extends BaseFormulaItem {
         for (var elem in _elem.children) {
             var top = double.parse(elem.style.top.replaceAll('px', ''));
             elem.style.top = '${top - maxNegativeOffsetTop}px';
-        }
-
-        // reallign all child expressions
-        for (var item in _innerItems) {
-            if (item is BaseExpression) item.realignVertical();
         }
 
         // fix height to cover all children's content

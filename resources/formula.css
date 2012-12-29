@@ -16,6 +16,10 @@ input.textLeaf {
 }
 
 .fraction,
+.function,
+.function .text,
+.function .bracket,
+.function .argument,
 .expression input {
     display: inline-block;
     vertical-align: middle;
@@ -31,9 +35,21 @@ input.textLeaf {
     text-align: center;
 }
 
-.numerator input {
+.numerator > input,
+.numerator > div {
     margin-bottom: 3px;
 }
-.denominator input {
+.denominator > input,
+.denominator > div {
     margin-top: 3px;
+}
+
+svg .bracket-line {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.5px;
+}
+
+.function .bracket {
+    margin: 0;
 }

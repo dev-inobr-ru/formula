@@ -15,14 +15,20 @@ class Toolbar {
         var fractionBtn = new ButtonElement();
         fractionBtn.text = 'Fraction';
         fractionBtn.classes.add('btn btn-primary');
-
         fractionBtn.on.click.add((e) {
             fractionBtn.$dom_dispatchEvent(new CustomEvent('insert_element', true, true));
         });
-
         fractionBtn.xtag = fractionFactory;
-
         divElem.children.add(fractionBtn);
+
+        var sinBtn = new ButtonElement();
+        sinBtn.text = 'Sin';
+        sinBtn.classes.add('btn btn-primary');
+        sinBtn.on.click.add((e) {
+          sinBtn.$dom_dispatchEvent(new CustomEvent('insert_element', true, true));
+        });
+        sinBtn.xtag = sinFactory;
+        divElem.children.add(sinBtn);
 
         return divElem;
     }

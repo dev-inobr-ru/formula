@@ -11,5 +11,11 @@ abstract class BaseFormulaItem {
 
     Element render();
 
+    Element renderText(text, [klass = 'text']) {
+        return new DivElement()
+                    ..classes.add(klass)
+                    ..text = text;
+    }
+
     double getBaselineY();
 }

@@ -7,9 +7,7 @@ class Fraction extends BaseExpression {
 
     Element _elem;
 
-    Fraction(BaseExpression parent) : super(parent);
-
-    void init() {
+    Fraction(BaseExpression parent) : super(parent){
         _numerator = new BaseExpression(this);
         _denominator = new BaseExpression(this);
     }

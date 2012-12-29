@@ -8,10 +8,6 @@ class BaseExpression extends BaseFormulaItem {
     Element _elem;
 
     BaseExpression(BaseExpression parent) : super(parent) {
-        init();
-    }
-
-    void init() {
         _innerItems.add(new TextLeaf(this));
     }
 
@@ -34,6 +30,8 @@ class BaseExpression extends BaseFormulaItem {
             _elem = new DivElement();
 
             _elem.classes.add(klass);
+
+            _elem.xtag = this;
         }
 
         _elem.children.clear();
@@ -43,11 +41,21 @@ class BaseExpression extends BaseFormulaItem {
     }
 
     double getBaselineY() {
-        return  _elem.clientHeight / 2;
+        return  (_getMaxHeightChild().xtag as BaseFormulaItem).getBaselineY();
     }
 
     int getElementHeight() {
         return _elem.clientHeight;
+    }
+
+    Element _getMaxHeightChild() {
+        var maxHeightElem = _elem.children[0];
+        for (var elem in _elem.children) {
+            if (elem.xtag != null && elem.clientHeight > maxHeightElem.clientHeight) {
+                maxHeightElem = elem;
+            }
+        }
+        return maxHeightElem;
     }
 
     void realignVertical() {
@@ -57,13 +65,7 @@ class BaseExpression extends BaseFormulaItem {
         }
 
         // align by baseline
-        var maxHeightElem = _elem.children[0];
-        for (var elem in _elem.children) {
-            if (elem.clientHeight > maxHeightElem.clientHeight) {
-                maxHeightElem = elem;
-            }
-        }
-
+        var maxHeightElem = _getMaxHeightChild();
         var baselineY = (maxHeightElem.xtag as BaseFormulaItem).getBaselineY();
         var delta = baselineY - maxHeightElem.clientHeight / 2;
         var maxNegativeOffsetTop = 0;
@@ -71,7 +73,12 @@ class BaseExpression extends BaseFormulaItem {
             if (elem == maxHeightElem){
                 elem.style.top = '0';
             } else {
-                var curDelta = (elem.xtag as BaseFormulaItem).getBaselineY() - elem.clientHeight / 2;
+                var curDelta;
+                if (elem.xtag is BaseFormulaItem) {
+                    curDelta = (elem.xtag as BaseFormulaItem).getBaselineY() - elem.clientHeight / 2;
+                } else {
+                    curDelta = 0;
+                }
                 elem.style.top = '${delta - curDelta}px';
             }
         }
@@ -85,7 +92,7 @@ class BaseExpression extends BaseFormulaItem {
             elem.style.top = '${top - maxNegativeOffsetTop}px';
         }
 
-        // fix height to cover all children's content
+        // fix containers height to cover all children's content
         var maxTotalHeight = 0;
         for (var elem in _elem.children) {
             var top = double.parse(elem.style.top.replaceAll('px', ''));

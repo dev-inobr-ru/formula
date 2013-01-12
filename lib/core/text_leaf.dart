@@ -63,4 +63,8 @@ class TextLeaf extends BaseFormulaItem {
     double getBaselineY() {
         return  _elem.clientHeight / 2;
     }
+
+    void focus() {
+        _elem.focus();
+    }
 }

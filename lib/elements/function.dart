@@ -62,6 +62,10 @@ class Function extends BaseExpression {
         super.realignVertical();
         _redrawBrackets(_argument.getElementHeight());
     }
+
+    void focus(){
+        _argument.focus();
+    }
 }
 
 

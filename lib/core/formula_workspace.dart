@@ -26,12 +26,14 @@ class FormulaWorkspace {
         _rootElement.on['insert_element'].add((e) {
             e.stopImmediatePropagation();
 
-            _lastTextLeaf.parent.insertFormulaElement((e.target as Element).xtag, _lastTextLeaf);
+            var insertedItem = _lastTextLeaf.parent.insertFormulaItem((e.target as Element).xtag, _lastTextLeaf);
 
             _rootElement.nodes.removeLast();
             _rootElement.nodes.add(_formulaArea.render());
 
             _formulaArea.realignVertical();
+
+            insertedItem.focus();
         });
     }
 

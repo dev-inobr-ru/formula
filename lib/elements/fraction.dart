@@ -34,6 +34,10 @@ class Fraction extends BaseExpression {
         _numerator.realignVertical();
         _denominator.realignVertical();
     }
+
+    void focus() {
+        _numerator.focus();
+    }
 }
 
 

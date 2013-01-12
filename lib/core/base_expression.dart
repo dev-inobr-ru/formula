@@ -16,13 +16,16 @@ class BaseExpression extends BaseFormulaItem {
      * elementFactory - fabric function to create element (needed function until will not be implemented dartbug.com/6282)
      *
      * */
-    void insertFormulaElement(elementFactory, TextLeaf dividedItem) {
+    BaseExpression insertFormulaItem(elementFactory, TextLeaf dividedItem) {
         var pos = _innerItems.indexOf(dividedItem);
         _innerItems.insertRange(pos + 1, 2);
-        _innerItems[pos + 1] = elementFactory(this);
+        var insertingItem = elementFactory(this);
+        _innerItems[pos + 1] = insertingItem;
         _innerItems[pos + 2] = new TextLeaf(this);
 
         render();
+
+        return insertingItem;
     }
 
     Element render([klass = 'expression']) {
@@ -105,5 +108,9 @@ class BaseExpression extends BaseFormulaItem {
             }
         }
         _elem.style.minHeight = "${maxTotalHeight}px";
+    }
+
+    void focus() {
+        (_innerItems[0] as TextLeaf).focus();
     }
 }

@@ -6,7 +6,7 @@ class TextLeaf extends BaseFormulaItem {
 
     TextLeaf(BaseExpression parent) : super(parent);
 
-    Element _elem;
+    InputElement _elem;
 
     Element render() {
         if (_elem == null) {

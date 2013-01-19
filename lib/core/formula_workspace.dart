@@ -7,6 +7,7 @@ class FormulaWorkspace {
     FormulaArea _formulaArea;
 
     TextLeaf _lastTextLeaf;
+    int _lastCursorPosition;
 
     FormulaWorkspace(String elementId) {
         _rootElement = query("#$elementId");
@@ -20,13 +21,15 @@ class FormulaWorkspace {
         _rootElement.on['text_leaf_blur'].add((e) {
             e.stopImmediatePropagation();
 
-            _lastTextLeaf = ((e as CustomEvent).target as Element).xtag;
+            var elem = (e as CustomEvent).target as Element;
+            _lastTextLeaf = elem.xtag;
+            _lastCursorPosition = elem.selectionStart;
         });
 
         _rootElement.on['insert_element'].add((e) {
             e.stopImmediatePropagation();
 
-            var insertedItem = _lastTextLeaf.parent.insertFormulaItem((e.target as Element).xtag, _lastTextLeaf);
+            var insertedItem = _lastTextLeaf.parent.insertFormulaItem((e.target as Element).xtag, _lastTextLeaf, _lastCursorPosition);
 
             _rootElement.nodes.removeLast();
             _rootElement.nodes.add(_formulaArea.render());

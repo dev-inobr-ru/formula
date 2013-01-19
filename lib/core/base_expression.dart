@@ -16,12 +16,15 @@ class BaseExpression extends BaseFormulaItem {
      * elementFactory - fabric function to create element (needed function until will not be implemented dartbug.com/6282)
      *
      * */
-    BaseExpression insertFormulaItem(elementFactory, TextLeaf dividedItem) {
+    BaseExpression insertFormulaItem(elementFactory, TextLeaf dividedItem, int cursorPosition) {
+        var rightTextPart = dividedItem.text.substring(cursorPosition);
+        dividedItem.text = dividedItem.text.substring(0, cursorPosition);
+
         var pos = _innerItems.indexOf(dividedItem);
         _innerItems.insertRange(pos + 1, 2);
         var insertingItem = elementFactory(this);
         _innerItems[pos + 1] = insertingItem;
-        _innerItems[pos + 2] = new TextLeaf(this);
+        _innerItems[pos + 2] = new TextLeaf(this, rightTextPart);
 
         render();
 
